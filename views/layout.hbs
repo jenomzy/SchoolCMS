@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="row">
+    <div class="col-lg-12">
+        {{#if success_msg}}
+            <div class="alert alert-success">{{success_msg}}</div>
+        {{/if}}
+        {{#if error_msg}}
+            <div class="alert alert-danger">{{error_msg}}</div>
+        {{/if}}
+        {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+        {{/if}}
+        {{#if user}}
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/timetable/showtimetable">Time Tables</a></li>
+                        {{#if user}}
+                            <li><a href="/timetable/updatetimetable">Change Time Tables</a></li>
+                            <li><a href="/timetable/newtimetable">New Time Tables</a></li>
+                        {{/if}}
+                        {{#if user}}
+                            <li><a href="/results/showresults">Results</a></li>
+                            <li><a href="/results/inputresults">Input Results</a></li>
+                            <li><a href="/showfeestatement">Fee Statement</a></li>
+                            <li><a href="/results/searchallresults">Search Results</a></li>
+                            <li><a href="/users/searchusers">Search Users</a></li>
+                            <li><a href="/users/fees">Input Fees</a></li>
+                        {{/if}}
+                        {{#if user.role.principal}}
+                            <li><a href="#">Input Marks</a></li>
+                        {{/if}}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {{#if user}}
+                            <li role="presentation"><a href="/users/logout">Logout</a></li>
+                        {{else}}
+                            <li role="presentation"><a href="/users/login">Login</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </nav>
+        {{/if}}
+
+        <div class="container">
+        {{{body}}}
+        </div>
+    </div>
+
+</div>
+<br />
+<br />
+<br />
+<br />
+<footer class="footer">
+    <p>&copy; 2017 SchoolNameCMS, Inc.</p>
+</footer>
+
+<!-- /container -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+<script>
+    $(document).ready(function(){
+        $(".dropdown-toggle").dropdown();
+    });
+</script>
+
+</body>
+</html>

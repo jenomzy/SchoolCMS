@@ -1,0 +1,63 @@
+<div>
+    <form id="tableForm" action="/results/getresult" method="post">
+        <div class="form-group">
+            <select class="selectpicker form-control" data-style="btn-info" name="class">
+                <optgroup label="Select Table">
+                    <option name="" value="0">Select Class</option>
+                    <option name="jss1" value="jss1">JSS1</option>
+                    <option name="jss2" value="jss2">JSS2</option>
+                    <option name="jss3" value="jss3">JSS3</option>
+                    <option name="sss1" value="sss1">SSS1</option>
+                    <option name="sss2" value="sss2">SSS2</option>
+                    <option name="sss3" value="sss3">SSS3</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="selectpicker form-control" data-style="btn-info" name="term">
+                <optgroup label="Select Table">
+                    <option name="" value="0">Select Term</option>
+                    <option name="firstterm" value="firstterm">First Term</option>
+                    <option name="secondterm" value="secondterm">Second Term</option>
+                    <option name="thirdterm" value="thirdterm">Third Term</option>
+                </optgroup>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+
+<div class="table-responsive">
+    <label style="align-content: center; font-size: 50px">{{timetable.class}}</label>
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <td>Subject</td>
+            <td>First C.A</td>
+            <td>Max marks</td>
+            <td>Second C.A</td>
+            <td>Max marks</td>
+            <td>Exam</td>
+            <td>Max marks</td>
+            <td>Total</td>
+            <td>Grade</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each results.resultinfo as |item itemIndex|}}
+            <tr>
+                <td>{{item.subject}}</td>
+                <td>{{item.first_ca}}</td>
+                <td>20</td>
+                <td>{{item.second_ca}}</td>
+                <td>20</td>
+                <td>{{item.exam}}</td>
+                <td>60</td>
+                <td>{{item.first_ca}} + {{item.second_ca}} + {{item.exam}}</td>
+                <td>100</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>

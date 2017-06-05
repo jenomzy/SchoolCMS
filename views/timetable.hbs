@@ -1,0 +1,34 @@
+<form method="post" action="/timetable/gettimetable">
+    <div>
+        <label>Class:</label>
+        <input type="text" class="form-control" name="class">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+<div class="table-responsive">
+    <label style="align-content: center; font-size: 50px">{{timetable.class}}</label>
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <td>Time/Days</td>
+            <td>Monday</td>
+            <td>Tuesday</td>
+            <td>Wednesday</td>
+            <td>Thursday</td>
+            <td>Friday</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each timetable.subjects as |item itemIndex|}}
+            <tr>
+                <td>{{item.time}}</td>
+                <td>{{item.subject_monday}}</td>
+                <td>{{item.subject_tuesday}}</td>
+                <td>{{item.subject_wednesday}}</td>
+                <td>{{item.subject_thursday}}</td>
+                <td>{{item.subject_friday}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>

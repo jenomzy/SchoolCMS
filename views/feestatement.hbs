@@ -1,0 +1,20 @@
+<div class="table-responsive">
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <td>Description</td>
+            <td>Credit</td>
+            <td>Debit</td>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each user.fee_statement as |item itemIndex|}}
+            <tr>
+                <td>{{item.description}}</td>
+                <td>{{item.debit}}</td>
+                <td>{{item.credit}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
