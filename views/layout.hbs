@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>{{title}}</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css"/>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +24,8 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -32,47 +33,102 @@
                         <!--<a class="navbar-brand" runat="server" href="~/">Application name</a>-->
                     </div>
                     <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/timetable/showtimetable">Time Tables</a></li>
-                        {{#if user}}
-                            <li><a href="/timetable/updatetimetable">Change Time Tables</a></li>
-                            <li><a href="/timetable/newtimetable">New Time Tables</a></li>
-                        {{/if}}
-                        {{#if user}}
-                            <li><a href="/results/showresults">Results</a></li>
-                            <li><a href="/results/inputresults">Input Results</a></li>
-                            <li><a href="/showfeestatement">Fee Statement</a></li>
-                            <li><a href="/results/searchallresults">Search Results</a></li>
-                            <li><a href="/users/searchusers">Search Users</a></li>
-                            <li><a href="/users/fees">Input Fees</a></li>
-                        {{/if}}
-                        {{#if user.role.principal}}
-                            <li><a href="#">Input Marks</a></li>
-                        {{/if}}
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        {{#if user}}
-                            <li role="presentation"><a href="/users/logout">Logout</a></li>
-                        {{else}}
-                            <li role="presentation"><a href="/users/login">Login</a></li>
-                        {{/if}}
-                    </ul>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/timetable/showtimetable">Time Tables</a></li>
+                            {{#compare user.account_type "student"}}
+                                <li><a href="/results/showresults">Results</a></li>
+                                <li><a href="/users/showfeestatement">Fee Statement</a>
+                                </li>
+                            {{/compare}}
+                            {{#compare user.account_type "user"}}
+                                <li><a href="/results/showresults">Results</a></li>
+                                <li><a href="/users/showfeestatement">Fee Statement</a>
+                                </li>
+                            {{/compare}}
+                            {{#compare user.account_type "user"}}
+                                <li class="dropdown">
+                                    <a class="btn dropdown-toggle"
+                                            data-toggle="dropdown">Time Table
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/timetable/updatetimetable">Change
+                                            Time Tables</a></li>
+                                        <li><a href="/timetable/newtimetable">New Time
+                                            Tables</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="btn dropdown-toggle"
+                                            data-toggle="dropdown">Results
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/results/inputresults">Input
+                                            Results</a></li>
+                                        <li><a href="/results/searchallresults">Search
+                                            Results</a></li>
+                                        <li><a href="/results/marks">Correct Marks
+                                            Error</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="btn dropdown-toggle"
+                                            data-toggle="dropdown">Users
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/users/searchstudent">Search
+                                            Students</a></li>
+                                        <li><a href="/users/searchstaff">Search Staff</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="btn dropdown-toggle"
+                                            data-toggle="dropdown">Fees Statement
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/users/fees">Input Fees</a></li>
+                                    </ul>
+                                </li>
+
+                            {{/compare}}
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            {{#if user}}
+                                <li role="presentation"><a href="/users/logout">Logout</a>
+                                </li>
+                            {{/if}}
+                        </ul>
                     </div>
                 </div>
             </nav>
+            <!--
+            <div class="w3-bar w3-light-grey">
+                <a href="#" class="w3-bar-item w3-button">Home</a>
+                <a href="#" class="w3-bar-item w3-button">Link 1</a>
+                <div class="w3-dropdown-click">
+                    <button class="w3-button" onclick="myFunction()">
+                        Dropdown <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div id="demo" class="w3-dropdown-content w3-bar-block w3-card-2">
+                        <a href="#" class="w3-bar-item w3-button">Link 1</a>
+                        <a href="#" class="w3-bar-item w3-button">Link 2</a>
+                        <a href="#" class="w3-bar-item w3-button">Link 3</a>
+                    </div>
+                </div>
+
+            </div>-->
         {{/if}}
 
-        <div class="container">
-        {{{body}}}
+        <div class="container" ng-app="appModule" ng-controller="appCtrl">
+            {{{body}}}
         </div>
     </div>
 
 </div>
-<br />
-<br />
-<br />
-<br />
+<br/>
+<br/>
+<br/>
+<br/>
 <footer class="footer">
     <p>&copy; 2017 SchoolNameCMS, Inc.</p>
 </footer>
@@ -83,13 +139,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-
-<script>
-    $(document).ready(function(){
-        $(".dropdown-toggle").dropdown();
-    });
-</script>
+<script data-require="angular.js@1.2.x" src="https://code.angularjs.org/1.2/16/angular.js"
+        data-semver="1.2.16"></script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
 </body>
 </html>

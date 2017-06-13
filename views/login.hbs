@@ -88,7 +88,7 @@
         color: #EF3B3A;
     }
     body {
-        background: #dca7a7; /* fallback for old browsers */ /* School color */
+        background: white; /* fallback for old browsers */ /* School color */
         font-family: "Roboto", sans-serif;
 }
 </style>
@@ -101,14 +101,18 @@
 <br />
 <br />
 <br />
-<br />
 <div class="login-page">
     <div class="form">
+        <div class="thumbnail">
+            <a href="https://www.google.com" target="_blank" title="Designed by GIGtech. Follow this link to go to our site."><img src="/images/gigtechicon.png" height="100px"></a>
+        </div>
+        <br />
+        <br />
         <form class="login-form" method="post" action="/users/login">
             <input type="text" placeholder="username" name="username"/>
             <input type="password" placeholder="password" name="password"/>
             <button>login</button>
-            <p class="message">Not registered? <a href="#">Create an account</a></p>
+            <p class="message">Forgot Password? <a href="/users/forgotpassword">Retrieve it!</a></p>
         </form>
     </div>
 </div>

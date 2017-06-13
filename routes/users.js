@@ -7,6 +7,16 @@ var request = require("request-json");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+require('hbs').registerHelper('compare', function (lvalue, rvalue, options) {
+    if(arguments.length < 3)
+        throw new Error("");
+    if(lvalue!=rvalue){
+        return options.inverse(this);
+    }
+    else {
+        return options.fn(this);
+    }
+});
 
 router.get('/register', ensureAuthenticated, function (req, res, next) {
     res.render('register', {
@@ -20,12 +30,37 @@ router.get('/login', function (req, res, next) {
     });
 });
 
+router.get('/searchstudent', function (req, res, next) {
+    res.render('searchstudents', {
+        title: "Search Students"
+    })
+});
+
+router.get('/searchstaff', function (req, res, next) {
+    res.render('searchstaff', {
+        title: "Search Staffs"
+    })
+});
+
+router.get('/fees', function (req, res, next) {
+    res.render('inputfees', {
+        title: "Input Fees"
+    })
+});
+
+router.get('/feestatement', function (req, res, next) {
+    res.render('feestatement', {
+        title: "Fees Statement"
+    })
+});
+
 router.post('/register', ensureAuthenticated, function (req, res, next) {
     var firstname = req.body.first_name;
     var middlename = req.body.middle_name;
     var lastname = req.body.last_name;
     var email = req.body.email;
     var sex = req.body.sex;
+    var role = req.body.role;
     var phone = req.body.phone;
     var address = req.body.address;
     var username = req.body.username;
@@ -59,6 +94,7 @@ router.post('/register', ensureAuthenticated, function (req, res, next) {
             last_name: lastname,
             email: email,
             sex: sex,
+            role: role,
             phone: phone,
             address: address,
             username: username,
@@ -72,7 +108,7 @@ router.post('/register', ensureAuthenticated, function (req, res, next) {
 
         req.flash('success_msg', 'You are registered and can now login');
 
-        res.redirect('/users/login');
+        res.redirect('/users/register');
     }
 });
 

@@ -5,7 +5,7 @@
         <input type="text" class="form-control" name="class">
     </div>
 
-    <div class="row">
+    <!--<div class="row">
         <div class="form-group col-md-2">
             <label>Time</label>
             <input type="text" class="form-control" name="time1">
@@ -30,6 +30,53 @@
             <label>Friday</label>
             <input type="text" class="form-control" name="fri1">
         </div>
+    </div>-->
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>Time</td>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each timetable.subjects as |item itemIndex|}}
+                    <tr>
+                        <td><input type="text" class="form-control" value="{{item.time}}"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="{{item.subject_monday}}"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="{{item.subject_tuesday}}"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="{{item.subject_wednesday}}"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="{{item.subject_thursday}}"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="{{item.subject_friday}}"></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>

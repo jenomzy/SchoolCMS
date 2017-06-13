@@ -2,12 +2,21 @@ var express = require('express');
 var Users = require('../models/users.model');
 var router = express.Router();
 
-
+require('hbs').registerHelper('compare', function (lvalue, rvalue, options) {
+    if(arguments.length < 3)
+        throw new Error("");
+    if(lvalue!=rvalue){
+        return options.inverse(this);
+    }
+    else {
+        return options.fn(this);
+    }
+});
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function (req, res, next) {
     res.render('index', {
-        title: 'Toll Payment System',
+        title: 'GIG School CMS',
         user: {
             name: req.user.name,
             firstname: req.user.first_name,
@@ -21,7 +30,8 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
             address: req.user.address,
             username: req.user.username,
             history: req.user.history,
-            role: req.user.account_type
+            role: req.user.role,
+            account_type: req.user.account_type
         }
     });
 });

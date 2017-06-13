@@ -2,6 +2,17 @@ var express = require('express');
 var Timetable = require('../models/timetable.model');
 var router = express.Router();
 
+require('hbs').registerHelper('compare', function (lvalue, rvalue, options) {
+    if(arguments.length < 3)
+        throw new Error("");
+    if(lvalue!=rvalue){
+        return options.inverse(this);
+    }
+    else {
+        return options.fn(this);
+    }
+});
+
 router.get('/showtimetable', ensureAuthenticated, function (req, res, next) {
     res.render('timetable', {
         title: "Time Table"

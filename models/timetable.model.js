@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var TimetableSchema = new Schema({
     class: {
-        type: String
+        type: String,
+        unique: true
     },
     subjects: [
         {

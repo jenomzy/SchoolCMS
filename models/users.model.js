@@ -29,6 +29,7 @@ var UserSchema = new Schema({
         type: String,
         default: "student"
     },
+    role: String,
     image: {
       type: String
     },
@@ -37,17 +38,7 @@ var UserSchema = new Schema({
             description: String,
             debit: String,
             credit: String
-        }],
-    results: [{
-        class: String,
-        term: String,
-        result_info: [{
-            subject: String,
-            first_ca: String,
-            second_ca: String,
-            exam: String
         }]
-    }]
 });
 
 var User = module.exports = mongoose.model('users', UserSchema);

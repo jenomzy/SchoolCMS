@@ -1,6 +1,17 @@
 var express = require('express');
-var Users = require('../models/users.model');
+var Result = require('../models/result.model');
 var router = express.Router();
+
+require('hbs').registerHelper('compare', function (lvalue, rvalue, options) {
+    if(arguments.length < 3)
+        throw new Error("");
+    if(lvalue!=rvalue){
+        return options.inverse(this);
+    }
+    else {
+        return options.fn(this);
+    }
+});
 
 router.get('/showresults', ensureAuthenticated, function (req, res, next) {
     res.render('results', {
@@ -24,17 +35,29 @@ router.get('/inputresults', ensureAuthenticated, function (req, res, next) {
     })
 });
 
+router.get('/marks', ensureAuthenticated, function (req, res, next) {
+    res.render('changemarks', {
+        title: "Change Results"
+    })
+});
+
 router.post('/getresult', ensureAuthenticated, function (req, res, next) {
-    Users.findOne({username: req.user.username},
-        {
-            _id:0,
-            results: {
-                $elemMatch: {
-                    class: req.body.class,
-                    term: req.body.term
+    Result.findOne({username: req.user.username},{class: req.body.class},{term: req.body.term}
+        , function (err, result) {
+            if (err) console.log(err);
+            console.log(result);
+            console.log(req.user.result_info);
+            res.render('results', {
+                results: {
+                    resultinfo: req.user.result_info
                 }
-            }
-        }, function (err, result) {
+            })
+        });
+});
+
+router.post('/searchresult', ensureAuthenticated, function (req, res, next) {
+    Result.findOne({username: req.body.username},{class: req.body.class},{term: req.body.term}
+        , function (err, result) {
             if (err) console.log(err);
             console.log(result);
             console.log(req.user.result_info);
@@ -47,9 +70,8 @@ router.post('/getresult', ensureAuthenticated, function (req, res, next) {
 });
 
 router.post('/inputresult', ensureAuthenticated, function (req, res, next) {
-    Users.update({username: req.body.student}, {
+    Result.update({username: req.body.student}, {
         $push: {
-            results: {
                 $each: [{
                     "class": req.body.class,
                     "term": req.body.term,
@@ -63,7 +85,6 @@ router.post('/inputresult', ensureAuthenticated, function (req, res, next) {
                     ]
                 }],
                 $position: 0
-            }
         }
     }, function (err, result) {
         if (err) throw err;
