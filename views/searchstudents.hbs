@@ -1,0 +1,63 @@
+<h2 class="page-header">Search Student</h2>
+<form method="post" action="/results/searchresult">
+    <div class="form-group">
+        <label>Students</label>
+        <input type="text" class="form-control" name="student">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<div class="row">
+    <div>
+        <img src="/images/gigtechicon.png">
+    </div>
+    <div>
+        <label>UserName:</label>
+        <label>{{user.username}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Account Type:</label>
+        <label>{{user.account_type}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Full Name:</label>
+        <label>{{user.name}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>First Name:</label>
+        <label>{{user.firstname}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Middle Name:</label>
+        <label>{{user.middlename}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Last Name:</label>
+        <label>{{user.lastname}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Sex:</label>
+        <label>{{user.sex}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Email:</label>
+        <label>{{user.email}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Address:</label>
+        <label>{{user.address}}</label>
+    </div>
+    <br/>
+    <div>
+        <label>Phone Number:</label>
+        <label>{{user.phone}}</label>
+    </div>
+</div>
