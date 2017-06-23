@@ -1,1 +1,52 @@
-<div>Still testing</div>
+<h2 class="page-header">Search Result</h2>
+<form method="post" action="/results/searchresult">
+    <div class="form-group">
+        <label>Student</label>
+        <input type="text" class="form-control" name="student">
+    </div>
+    <div class="form-group">
+        <label>Class</label>
+        <input type="text" class="form-control" name="class">
+    </div>
+    <div class="form-group">
+        <label>Term</label>
+        <input type="text" class="form-control" name="term">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<form method="post" action="/results/correctmarks">
+    <div class="table-responsive">
+        <label style="align-content: center; font-size: 50px">{{timetable.class}}</label>
+        <table class="table table-condensed table-hover">
+            <thead>
+            <tr>
+                <td>Subject</td>
+                <td>First C.A</td>
+                <td>Max marks</td>
+                <td>Second C.A</td>
+                <td>Max marks</td>
+                <td>Exam</td>
+                <td>Max marks</td>
+                <td>Total</td>
+                <td>Grade</td>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each results.resultinfo as |item itemIndex|}}
+                <tr>
+                    <td>{{item.subject}}</td>
+                    <td><input type="text" name="subj" value="{{item.first_ca}}"></td>
+                    <td>20</td>
+                    <td><input type="text" name="subj" value="{{item.second_ca}}"></td>
+                    <td>20</td>
+                    <td><input type="text" name="subj" value="{{item.exam}}"></td>
+                    <td>60</td>
+                    <td>{{item.first_ca}} + {{item.second_ca}} + {{item.exam}}</td>
+                    <td>100</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</form>

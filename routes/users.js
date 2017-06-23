@@ -42,10 +42,83 @@ router.get('/searchstaff', function (req, res, next) {
     })
 });
 
+router.post('/updatestudentinfo', function (req, res, next) {
+    User.update({username: req.body.username}, {
+        $push: {
+            $each: [{
+                "name": req.body.fullname,
+                "first_name": req.body.firstname,
+                "middle_name": req.body.middlename,
+                "last_name": req.body.lastname,
+                "sex": req.body.sex,
+                "email": req.body.email,
+                "address": req.body.address,
+                "phone": req.body.phone
+            }],
+            $position: 0
+        }
+    }, function (err, result) {
+        if (err) throw err;
+        else {
+            console.log(result);
+            res.redirect('/searchstudent');
+        }
+    });
+});
+
+router.post('/updatestaffinfo', function (req, res, next) {
+    User.update({username: req.body.username}, {
+        $push: {
+            $each: [{
+                "name": req.body.fullname,
+                "first_name": req.body.firstname,
+                "middle_name": req.body.middlename,
+                "last_name": req.body.lastname,
+                "sex": req.body.sex,
+                "email": req.body.email,
+                "address": req.body.address,
+                "phone": req.body.phone
+            }],
+            $position: 0
+        }
+    }, function (err, result) {
+        if (err) throw err;
+        else {
+            console.log(result);
+            res.redirect('/searchstudent');
+        }
+    });
+});
+
 router.get('/fees', function (req, res, next) {
     res.render('inputfees', {
         title: "Input Fees"
     })
+});
+
+router.post('/savefees', function (req, res, next) {
+    var description = req.body.desc;
+    var debit = req.body.deb;
+    var credit = req.body.cre;
+
+    var newUser = new User({
+        fee_statement: [
+            {
+                description: description,
+                debit: debit,
+                credit: credit
+            }
+        ]
+    });
+
+    User.createUser(newUser, function (err, user) {
+        if (err) throw  err;
+        console.log(user);
+    });
+
+    req.flash('success_msg', 'Fees statement has been added.');
+
+    res.redirect('/users/fees');
 });
 
 router.get('/feestatement', function (req, res, next) {

@@ -36,15 +36,6 @@ router.get('/', ensureAuthenticated, function (req, res, next) {
     });
 });
 
-router.get('/showfeestatement', ensureAuthenticated, function (req, res, next) {
-    res.render('feestatement',{
-        title: "Results",
-        user: {
-            fee_statement: req.user.fee_statement
-        }
-    })
-});
-
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();

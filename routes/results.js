@@ -41,6 +41,32 @@ router.get('/marks', ensureAuthenticated, function (req, res, next) {
     })
 });
 
+router.post('/correctmarks', function (req, res, next) {
+    Result.update({username: req.body.student}, {
+        $push: {
+            $each: [{
+                "class": req.body.class,
+                "term": req.body.term,
+                "result_info": [
+                    {
+                        "subject": req.body.subject,
+                        "first_ca": req.body.firstca,
+                        "second_ca": req.body.secondca,
+                        "exam": req.body.exam
+                    }
+                ]
+            }],
+            $position: 0
+        }
+    }, function (err, result) {
+        if (err) throw err;
+        else {
+            console.log(result);
+            res.redirect('/');
+        }
+    });
+});
+
 router.post('/getresult', ensureAuthenticated, function (req, res, next) {
     Result.findOne({username: req.user.username},{class: req.body.class},{term: req.body.term}
         , function (err, result) {
@@ -70,30 +96,42 @@ router.post('/searchresult', ensureAuthenticated, function (req, res, next) {
 });
 
 router.post('/inputresult', ensureAuthenticated, function (req, res, next) {
-    Result.update({username: req.body.student}, {
-        $push: {
-                $each: [{
-                    "class": req.body.class,
-                    "term": req.body.term,
-                    "result_info": [
-                        {
-                            "subject": req.body.username,
-                            "first_ca": req.body.firstca,
-                            "second_ca": req.body.secondca,
-                            "exam": req.body.exam
-                        }
-                    ]
-                }],
-                $position: 0
-        }
-    }, function (err, result) {
-        if (err) throw err;
-        else {
-            console.log(result);
-            res.redirect('/');
-        }
-    });
+    var student = req.body.student;
+    var clas = req.body.class;
+    var term = req.body.term;
+    var subj = req.body.subject;
+    var fca = req.body.firstca;
+    var sca = req.body.secondca;
+    var exa = req.body.exam;
 
+    var errors = req.validationErrors();
+
+    if (errors) {
+        res.render('inputresult', {
+            errors: errors
+        });
+    } else {
+        var newResult = new Result({
+            username: student,
+            class: clas,
+            term: term,
+            result_info: [{
+                subject: subj,
+                first_ca: fca,
+                second_ca: sca,
+                exam: exa
+            }]
+        });
+
+        Result.createResult(newResult, function (err, result) {
+            if (err) throw  err;
+            console.log(result);
+        });
+
+        req.flash('success_msg', 'Result added');
+
+        res.redirect('/inputresults');
+    }
 });
 
 function ensureAuthenticated(req, res, next) {
