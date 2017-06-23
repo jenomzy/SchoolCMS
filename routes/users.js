@@ -76,7 +76,7 @@ router.post('/forgot', function (req, res, next) {
         },
         function(token, user, done) {
             var smtpTransport = nodemailer.createTransport('SMTP', {
-                service: 'SendGrid',
+                service: 'Outlook365',
                 auth: {
                     user: '!!! YOUR SENDGRID USERNAME !!!',
                     pass: '!!! YOUR SENDGRID PASSWORD !!!'
@@ -136,7 +136,7 @@ router.post('/reset/:token', function (req, res, next) {
         },
         function(user, done) {
             var smtpTransport = nodemailer.createTransport('SMTP', {
-                service: 'SendGrid',
+                service: 'Outlook365',
                 auth: {
                     user: '!!! YOUR SENDGRID USERNAME !!!',
                     pass: '!!! YOUR SENDGRID PASSWORD !!!'
