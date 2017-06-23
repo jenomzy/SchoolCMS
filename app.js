@@ -11,8 +11,6 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-
-
 mongoose.connect(process.env.MONGODB_URI);
 
 // mongoose.connect('mongodb://localhost/schoolcms');

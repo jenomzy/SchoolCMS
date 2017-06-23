@@ -38,10 +38,13 @@ var UserSchema = new Schema({
             description: String,
             debit: String,
             credit: String
-        }]
+        }],
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
-var User = module.exports = mongoose.model('users', UserSchema);
+var User = mongoose.model('users', UserSchema);
+// var User = module.exports = mongoose.model('users', UserSchema);
 
 module.exports.createUser = function (newUser, callback) {
     bcrypt.genSalt(10, function (err, salt) {
@@ -51,6 +54,23 @@ module.exports.createUser = function (newUser, callback) {
         });
     });
 };
+
+// UserSchema.pre('save', function(next) {
+//     var user = this;
+//     var SALT_FACTOR = 5;
+//
+//     if (!user.isModified('password')) return next();
+//
+//     bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+//         if (err) return next(err);
+//
+//         bcrypt.hash(user.password, salt, null, function(err, hash) {
+//             if (err) return next(err);
+//             user.password = hash;
+//             next();
+//         });
+//     });
+// });
 
 module.exports.getUserByUsername = function (username, callback) {
     var query = {username: username};
