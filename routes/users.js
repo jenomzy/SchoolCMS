@@ -214,28 +214,24 @@ router.get('/fees', function (req, res, next) {
 });
 
 router.post('/savefees', function (req, res, next) {
-    var description = req.body.desc;
-    var debit = req.body.deb;
-    var credit = req.body.cre;
-
-    var newUser = new User({
-        fee_statement: [
-            {
-                description: description,
-                debit: debit,
-                credit: credit
-            }
-        ]
+    User.update({username: req.body.student}, {
+        $push: {
+            $each: [{
+                "fee_statement": [{
+                    "description": req.body.desc,
+                    "debit": req.body.deb,
+                    "credit": req.body.cre
+                }]
+            }],
+            $position: 0
+        }
+    }, function (err, result) {
+        if (err) throw err;
+        else {
+            console.log(result);
+            res.redirect('/inputfees');
+        }
     });
-
-    User.createUser(newUser, function (err, user) {
-        if (err) throw  err;
-        console.log(user);
-    });
-
-    req.flash('success_msg', 'Fees statement has been added.');
-
-    res.redirect('/users/fees');
 });
 
 router.get('/feestatement', function (req, res, next) {
