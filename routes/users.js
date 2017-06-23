@@ -254,8 +254,8 @@ router.post('/register', ensureAuthenticated, function (req, res, next) {
     var phone = req.body.phone;
     var address = req.body.address;
     var username = req.body.username;
-    var password = req.body.password;
-    var password2 = req.body.password2;
+    var password = req.body.password + a;
+    var password2 = req.body.password2 + a;
 
     //Validation
     req.checkBody('first_name', 'First name is required').notEmpty();
